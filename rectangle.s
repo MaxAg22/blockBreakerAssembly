@@ -16,18 +16,18 @@ draw_rectangle:
     mul  x8, x4, x6            // y * SCREEN_WIDTH
     add  x8, x8, x3            // + x
     lsl  x8, x8, #2            // * 4 bytes por pixel
-    add  x0, x0, x8            // x0 = framebuffer + offset
+    add  x20, x20, x8            // x0 = framebuffer + offset
 
 // Loop de dibujo
 draw_rect:
-    mov  x9, x1                	// Contador x
+    mov  x12, x1                	// Contador x
 draw_row:
-    str  w5, [x0]				// Colorear el píxel N
-    add  x0, x0, 4				// Siguiente píxel
-    subs x9, x9, 1				// Decrementar contador X
+    str  w5, [x20]				// Colorear el píxel N
+    add  x20, x20, 4				// Siguiente píxel
+    subs x12, x12, 1				// Decrementar contador X
     b.ne draw_row				// Si no terminó la fila, salto
 
-    add  x0, x0, x7            	// Salto a siguiente fila
+    add  x20, x20, x7            	// Salto a siguiente fila
     subs x2, x2, 1             	// Altura--
     b.ne draw_rect			   	// Si no es la última fila, salto
 
